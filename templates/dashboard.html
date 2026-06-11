@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Welcome, {{ current_user.username }}</h1>
+        <p class="text-muted">
+            Track your emotional growth
+        </p>
+    </div>
+
+    <a href="{{ url_for('new_entry') }}"
+       class="btn btn-primary">
+        + New Reflection
+    </a>
+
+</div>
+
+{% if entries %}
+
+<div class="row">
+
+    {% for entry in entries %}
+
+    <div class="col-md-6 mb-4">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body">
+
+                <h5>{{ entry.title }}</h5>
+
+                <p class="text-muted small">
+                    {{ entry.created_at.strftime('%d %B %Y') }}
+                </p>
+
+                <p>
+                    <strong>Mood:</strong>
+                    {{ entry.mood_score }}/5
+                </p>
+
+                <p>
+                    <strong>Main Emotion:</strong>
+                    {{ entry.strongest_emotion }}
+                </p>
+
+                <p>
+                    {{ entry.emotional_event[:150] }}...
+                </p>
+
+            </div>
+
+            <div class="card-footer">
+
+                <a href="{{ url_for('view_entry',
+                                    entry_id=entry.id) }}"
+                   class="btn btn-outline-primary btn-sm">
+                    View Reflection
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    {% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No reflections yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

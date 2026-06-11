@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Reflection{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+        <h2>Edit Reflection</h2>
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    value="{{ entry.title }}"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Mood Score
+                </label>
+
+                <select
+                    name="mood_score"
+                    class="form-select">
+
+                    {% for score in range(1,6) %}
+
+                    <option value="{{ score }}"
+                        {% if score == entry.mood_score %}
+                            selected
+                        {% endif %}>
+                        {{ score }}
+                    </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Strongest Emotion
+                </label>
+
+                <input
+                    type="text"
+                    name="strongest_emotion"
+                    class="form-control"
+                    value="{{ entry.strongest_emotion }}"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    What happened today?
+                </label>
+
+                <textarea
+                    name="emotional_event"
+                    class="form-control"
+                    rows="4"
+                    required>{{ entry.emotional_event }}</textarea>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    What story was I telling myself?
+                </label>
+
+                <textarea
+                    name="personal_story"
+                    class="form-control"
+                    rows="4"
+                    required>{{ entry.personal_story }}</textarea>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    Evidence for or against that story
+                </label>
+
+                <textarea
+                    name="evidence"
+                    class="form-control"
+                    rows="4"
+                    required>{{ entry.evidence }}</textarea>
+
+            </div>
+
+            <div class="mb-3">
+
+                <label class="form-label">
+                    What do I want to carry into tomorrow?
+                </label>
+
+                <textarea
+                    name="tomorrow_focus"
+                    class="form-control"
+                    rows="4"
+                    required>{{ entry.tomorrow_focus }}</textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-success">
+                Save Changes
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}

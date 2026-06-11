@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}New Entry{% endblock %}
+
+{% block content %}
+
+<div class="card shadow">
+
+    <div class="card-header">
+        <h2>Daily Reflection</h2>
+    </div>
+
+    <div class="card-body">
+
+        <form method="POST">
+
+            <div class="mb-3">
+                <label class="form-label">
+                    Entry Title
+                </label>
+
+                <input
+                    type="text"
+                    name="title"
+                    class="form-control"
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    How are you feeling right now?
+                </label>
+
+                <select
+                    name="mood_score"
+                    class="form-select"
+                    required>
+
+                    <option value="1">1 - Very Low</option>
+                    <option value="2">2 - Low</option>
+                    <option value="3">3 - Neutral</option>
+                    <option value="4">4 - Good</option>
+                    <option value="5">5 - Great</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    What emotion was strongest today?
+                </label>
+
+                <input
+                    type="text"
+                    name="strongest_emotion"
+                    class="form-control"
+                    placeholder="Anxiety, Hope, Love, Fear..."
+                    required>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    What happened today that affected you emotionally?
+                </label>
+
+                <textarea
+                    name="emotional_event"
+                    class="form-control"
+                    rows="4"
+                    required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    What story were you telling yourself about it?
+                </label>
+
+                <textarea
+                    name="personal_story"
+                    class="form-control"
+                    rows="4"
+                    required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    What evidence supports or challenges that story?
+                </label>
+
+                <textarea
+                    name="evidence"
+                    class="form-control"
+                    rows="4"
+                    required></textarea>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">
+                    What do you want to carry into tomorrow?
+                </label>
+
+                <textarea
+                    name="tomorrow_focus"
+                    class="form-control"
+                    rows="4"
+                    required></textarea>
+            </div>
+
+            <button
+                type="submit"
+                class="btn btn-success">
+                Save Reflection
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
