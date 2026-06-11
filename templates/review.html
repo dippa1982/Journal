@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Your Emotional Review</h1>
+
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        <h4>Total Reflections</h4>
+        <p>{{ total_entries }}</p>
+
+        <h4>Average Mood</h4>
+        <p>{{ average_mood }}/5</p>
+
+    </div>
+
+</div>
+
+<div class="card">
+
+    <div class="card-header">
+        Emotion Frequency
+    </div>
+
+    <div class="card-body">
+
+        {% for emotion, count in emotions %}
+
+            <p>
+                {{ emotion }} - {{ count }}
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

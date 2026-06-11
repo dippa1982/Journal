@@ -8,7 +8,7 @@ from flask import (
 )
 
 from flask_sqlalchemy import SQLAlchemy
-
+from collections import Counter
 from flask_login import (
     LoginManager,
     UserMixin,
@@ -232,10 +232,31 @@ def dashboard():
         Entry.created_at.desc()
     ).all()
 
+    emotion_counter = Counter()
+
+    for entry in entries:
+        emotion_counter[entry.strongest_emotion] += 1
+
+    top_emotions = emotion_counter.most_common(5)
+
+    total_entries = len(entries)
+
+    if total_entries > 0:
+        average_mood = round(
+            sum(entry.mood_score for entry in entries)
+            / total_entries,
+            1
+        )
+    else:
+        average_mood = 0
+
     return render_template(
-        'dashboard.html',
-        entries=entries
-    )
+    'dashboard.html',
+    entries=entries,
+    total_entries=total_entries,
+    average_mood=average_mood,
+    top_emotions=top_emotions
+)
 
 
 # --------------------------------------------------
@@ -375,6 +396,40 @@ def search():
         query=query
     )
 
+# --------------------------------------------------
+# Monthly Review
+# --------------------------------------------------
+
+@app.route('/review')
+@login_required
+def review():
+
+    entries = Entry.query.filter_by(
+        user_id=current_user.id
+    ).all()
+
+    total_entries = len(entries)
+
+    if total_entries:
+        average_mood = round(
+            sum(e.mood_score for e in entries)
+            / total_entries,
+            1
+        )
+    else:
+        average_mood = 0
+
+    emotion_counter = Counter(
+        e.strongest_emotion
+        for e in entries
+    )
+
+    return render_template(
+        'review.html',
+        total_entries=total_entries,
+        average_mood=average_mood,
+        emotions=emotion_counter.most_common()
+    )
 # --------------------------------------------------
 # Create Database
 # --------------------------------------------------

@@ -24,6 +24,62 @@
 
 <div class="row">
 
+    <div class="row mb-4">
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h5>Total Reflections</h5>
+
+                <h2>{{ total_entries }}</h2>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+
+            <div class="card-body text-center">
+
+                <h5>Average Mood</h5>
+
+                <h2>{{ average_mood }}/5</h2>
+
+            </div>
+
+        </div>
+        <div class="card shadow-sm mb-4">
+
+    <div class="card-header">
+        Most Common Emotions
+    </div>
+
+    <div class="card-body">
+
+        {% for emotion, count in top_emotions %}
+
+            <p>
+                <strong>{{ emotion }}</strong>
+                ({{ count }})
+            </p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+    </div>
+
+</div>
+
     {% for entry in entries %}
 
     <div class="col-md-6 mb-4">
