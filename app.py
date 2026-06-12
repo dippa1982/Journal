@@ -35,8 +35,7 @@ app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'replace-with-a-secure-secret-key'
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'postgresql://journal_database_jym9_user:op3RXpBVxM09AUL6YY35PYuNNVnLEwpD@dpg-d8m0lt7avr4c73fl0cag-a/journal_database_jym9',
-    'sqlite:///journal.db'
+    'postgresql://journal_database_jym9_user:op3RXpBVxM09AUL6YY35PYuNNVnLEwpD@dpg-d8m0lt7avr4c73fl0cag-a.frankfurt-postgres.render.com/journal_database_jym9'
 )
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
