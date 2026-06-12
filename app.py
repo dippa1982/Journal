@@ -120,6 +120,13 @@ class Entry(db.Model):
         nullable=False
     )
 
+# --------------------------------------------------
+# Debug
+# --------------------------------------------------
+
+@app.route('/debug-db')
+def debug_db():
+    return str(db.engine.url)
 
 # --------------------------------------------------
 # Flask Login
