@@ -387,6 +387,14 @@ def export_markdown():
     ).all()
 
     markdown = """
+# Journal Metadata
+
+Export Date: 16 June 2026 12:48
+Entries Included: 2
+Date Range: 16 June 2026 - 16 June 2026
+
+---
+
 # AI Reflection Request
 
 Please analyse these journal entries.
@@ -411,6 +419,9 @@ Then provide:
 2. Progress made
 3. Current challenges
 4. Suggested focus for the next month
+
+---
+
 """
 
 
