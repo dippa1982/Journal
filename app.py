@@ -8,6 +8,7 @@ from flask import (
 )
 
 from flask_sqlalchemy import SQLAlchemy
+from flask import Response
 from collections import Counter
 from flask_login import (
     LoginManager,
@@ -369,6 +370,51 @@ def view_entry(entry_id):
     return render_template(
         'view_entry.html',
         entry=entry
+    )
+
+# --------------------------------------------------
+# Export to AI
+# --------------------------------------------------
+
+@app.route('/export-markdown')
+@login_required
+def export_markdown():
+
+    entries = Entry.query.filter_by(
+        user_id=current_user.id
+    ).order_by(
+        Entry.created_at.asc()
+    ).all()
+
+    markdown = "# My Journal\n\n"
+
+    for entry in entries:
+
+        mood_text = {
+            5: "😁 Great",
+            4: "🙂 Good",
+            3: "😐 Okay",
+            2: "😔 Low",
+            1: "😞 Struggling"
+        }.get(entry.mood_score, "Unknown")
+
+        markdown += f"""## {entry.created_at.strftime('%d %B %Y %H:%M')}
+
+Mood: {mood_text}
+
+{entry.content}
+
+---
+
+"""
+
+    return Response(
+        markdown,
+        mimetype="text/markdown",
+        headers={
+            "Content-Disposition":
+            "attachment; filename=journal.md"
+        }
     )
 
 # --------------------------------------------------
