@@ -77,37 +77,12 @@ class User(UserMixin, db.Model):
 class Entry(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
-    title = db.Column(
-        db.String(200),
-        nullable=False
-    )
-
     mood_score = db.Column(
         db.Integer,
         nullable=False
     )
 
-    strongest_emotion = db.Column(
-        db.String(100),
-        nullable=False
-    )
-
-    emotional_event = db.Column(
-        db.Text,
-        nullable=False
-    )
-
-    personal_story = db.Column(
-        db.Text,
-        nullable=False
-    )
-
-    evidence = db.Column(
-        db.Text,
-        nullable=False
-    )
-
-    tomorrow_focus = db.Column(
+    content = db.Column(
         db.Text,
         nullable=False
     )
@@ -246,32 +221,25 @@ def dashboard():
         Entry.created_at.desc()
     ).all()
 
-    emotion_counter = Counter()
-
-    for entry in entries:
-        emotion_counter[entry.strongest_emotion] += 1
-
-    top_emotions = emotion_counter.most_common(5)
-
     total_entries = len(entries)
 
-    if total_entries > 0:
+    if total_entries:
         average_mood = round(
-            sum(entry.mood_score for entry in entries)
-            / total_entries,
+            sum(
+                e.mood_score
+                for e in entries
+            ) / total_entries,
             1
         )
     else:
         average_mood = 0
 
     return render_template(
-    'dashboard.html',
-    entries=entries,
-    total_entries=total_entries,
-    average_mood=average_mood,
-    top_emotions=top_emotions
-)
-
+        'dashboard.html',
+        entries=entries,
+        total_entries=total_entries,
+        average_mood=average_mood
+    )
 
 # --------------------------------------------------
 # New Entry
@@ -284,13 +252,8 @@ def new_entry():
     if request.method == 'POST':
 
         entry = Entry(
-            title=request.form['title'],
-            mood_score=request.form['mood_score'],
-            strongest_emotion=request.form['strongest_emotion'],
-            emotional_event=request.form['emotional_event'],
-            personal_story=request.form['personal_story'],
-            evidence=request.form['evidence'],
-            tomorrow_focus=request.form['tomorrow_focus'],
+            mood_score=int(request.form['mood_score']),
+            content=request.form['content'],
             user_id=current_user.id
         )
 
@@ -301,13 +264,18 @@ def new_entry():
 
         return redirect(url_for('dashboard'))
 
-    return render_template('new_entry.html')
+    return render_template(
+        'new_entry.html',
+        now=datetime.now()
+    )
 
 
 # --------------------------------------------------
 # Edit Entry
 # --------------------------------------------------
-@app.route('/edit-entry/<int:entry_id>', methods=['GET', 'POST'])
+
+@app.route('/edit-entry/<int:entry_id>',
+           methods=['GET', 'POST'])
 @login_required
 def edit_entry(entry_id):
 
@@ -318,17 +286,15 @@ def edit_entry(entry_id):
 
     if request.method == 'POST':
 
-        entry.title = request.form['title']
-        entry.mood_score = request.form['mood_score']
-        entry.strongest_emotion = request.form['strongest_emotion']
-        entry.emotional_event = request.form['emotional_event']
-        entry.personal_story = request.form['personal_story']
-        entry.evidence = request.form['evidence']
-        entry.tomorrow_focus = request.form['tomorrow_focus']
+        entry.mood_score = int(
+            request.form['mood_score']
+        )
+
+        entry.content = request.form['content']
 
         db.session.commit()
 
-        flash('Entry updated successfully.')
+        flash('Entry updated.')
 
         return redirect(
             url_for(
@@ -341,25 +307,6 @@ def edit_entry(entry_id):
         'edit_entry.html',
         entry=entry
     )
-
-# --------------------------------------------------
-# View Entry
-# --------------------------------------------------
-
-@app.route('/entry/<int:entry_id>')
-@login_required
-def view_entry(entry_id):
-
-    entry = Entry.query.filter_by(
-        id=entry_id,
-        user_id=current_user.id
-    ).first_or_404()
-
-    return render_template(
-        'view_entry.html',
-        entry=entry
-    )
-
 
 # --------------------------------------------------
 # Delete Entry
@@ -392,14 +339,10 @@ def search():
     query = request.args.get('q', '')
 
     entries = Entry.query.filter(
-    Entry.user_id == current_user.id,
-    (
-        Entry.title.ilike(f"%{query}%") |
-        Entry.emotional_event.ilike(f"%{query}%") |
-        Entry.personal_story.ilike(f"%{query}%") |
-        Entry.evidence.ilike(f"%{query}%") |
-        Entry.tomorrow_focus.ilike(f"%{query}%")
-    )
+        Entry.user_id == current_user.id,
+        Entry.content.ilike(
+            f"%{query}%"
+        )
     ).order_by(
         Entry.created_at.desc()
     ).all()
@@ -411,44 +354,29 @@ def search():
     )
 
 # --------------------------------------------------
-# Monthly Review
+# View Entry
 # --------------------------------------------------
 
-@app.route('/review')
+@app.route('/entry/<int:entry_id>')
 @login_required
-def review():
+def view_entry(entry_id):
 
-    entries = Entry.query.filter_by(
+    entry = Entry.query.filter_by(
+        id=entry_id,
         user_id=current_user.id
-    ).all()
-
-    total_entries = len(entries)
-
-    if total_entries:
-        average_mood = round(
-            sum(e.mood_score for e in entries)
-            / total_entries,
-            1
-        )
-    else:
-        average_mood = 0
-
-    emotion_counter = Counter(
-        e.strongest_emotion
-        for e in entries
-    )
+    ).first_or_404()
 
     return render_template(
-        'review.html',
-        total_entries=total_entries,
-        average_mood=average_mood,
-        emotions=emotion_counter.most_common()
+        'view_entry.html',
+        entry=entry
     )
+
 # --------------------------------------------------
 # Create Database
 # --------------------------------------------------
 
 with app.app_context():
+    db.drop_all()
     db.create_all()
 
 

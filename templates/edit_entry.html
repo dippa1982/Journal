@@ -1,137 +1,108 @@
 {% extends "base.html" %}
 
-{% block title %}Edit Reflection{% endblock %}
+{% block title %}Edit Entry{% endblock %}
 
 {% block content %}
 
-<div class="card shadow">
+<div class="row justify-content-center">
 
-    <div class="card-header">
-        <h2>Edit Reflection</h2>
-    </div>
+    <div class="col-lg-8">
 
-    <div class="card-body">
+        <div class="card border-0 shadow-sm">
 
-        <form method="POST">
+            <div class="card-body p-4">
 
-            <div class="mb-3">
+                <div class="mb-4">
 
-                <label class="form-label">
-                    Title
-                </label>
+                    <h2 class="mb-1">
+                        Edit Journal Entry
+                    </h2>
 
-                <input
-                    type="text"
-                    name="title"
-                    class="form-control"
-                    value="{{ entry.title }}"
-                    required>
+                    <p class="text-muted mb-0">
 
-            </div>
+                        {{ entry.created_at.strftime('%A %d %B %Y') }}
 
-            <div class="mb-3">
+                    </p>
 
-                <label class="form-label">
-                    Mood Score
-                </label>
+                </div>
 
-                <select
-                    name="mood_score"
-                    class="form-select">
+                <form method="POST">
 
-                    {% for score in range(1,6) %}
+                    <div class="mb-4">
 
-                    <option value="{{ score }}"
-                        {% if score == entry.mood_score %}
-                            selected
-                        {% endif %}>
-                        {{ score }}
-                    </option>
+                        <label class="form-label">
+                            How are you feeling?
+                        </label>
 
-                    {% endfor %}
+                        <select
+                            name="mood_score"
+                            class="form-select"
+                            required>
 
-                </select>
+                            <option value="5"
+                                {% if entry.mood_score == 5 %}selected{% endif %}>
+                                😁 Great
+                            </option>
 
-            </div>
+                            <option value="4"
+                                {% if entry.mood_score == 4 %}selected{% endif %}>
+                                🙂 Good
+                            </option>
 
-            <div class="mb-3">
+                            <option value="3"
+                                {% if entry.mood_score == 3 %}selected{% endif %}>
+                                😐 Okay
+                            </option>
 
-                <label class="form-label">
-                    Strongest Emotion
-                </label>
+                            <option value="2"
+                                {% if entry.mood_score == 2 %}selected{% endif %}>
+                                😔 Low
+                            </option>
 
-                <input
-                    type="text"
-                    name="strongest_emotion"
-                    class="form-control"
-                    value="{{ entry.strongest_emotion }}"
-                    required>
+                            <option value="1"
+                                {% if entry.mood_score == 1 %}selected{% endif %}>
+                                😞 Struggling
+                            </option>
 
-            </div>
+                        </select>
 
-            <div class="mb-3">
+                    </div>
 
-                <label class="form-label">
-                    What happened today?
-                </label>
+                    <div class="mb-4">
 
-                <textarea
-                    name="emotional_event"
-                    class="form-control"
-                    rows="4"
-                    required>{{ entry.emotional_event }}</textarea>
+                        <label class="form-label">
+                            Your thoughts
+                        </label>
 
-            </div>
+                        <textarea
+                            name="content"
+                            class="form-control"
+                            rows="14"
+                            required>{{ entry.content }}</textarea>
 
-            <div class="mb-3">
+                    </div>
 
-                <label class="form-label">
-                    What story was I telling myself?
-                </label>
+                    <div class="d-flex justify-content-between">
 
-                <textarea
-                    name="personal_story"
-                    class="form-control"
-                    rows="4"
-                    required>{{ entry.personal_story }}</textarea>
+                        <a href="{{ url_for('view_entry',
+                                            entry_id=entry.id) }}"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
 
-            </div>
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+                            Save Changes
+                        </button>
 
-            <div class="mb-3">
+                    </div>
 
-                <label class="form-label">
-                    Evidence for or against that story
-                </label>
-
-                <textarea
-                    name="evidence"
-                    class="form-control"
-                    rows="4"
-                    required>{{ entry.evidence }}</textarea>
+                </form>
 
             </div>
 
-            <div class="mb-3">
-
-                <label class="form-label">
-                    What do I want to carry into tomorrow?
-                </label>
-
-                <textarea
-                    name="tomorrow_focus"
-                    class="form-control"
-                    rows="4"
-                    required>{{ entry.tomorrow_focus }}</textarea>
-
-            </div>
-
-            <button
-                type="submit"
-                class="btn btn-success">
-                Save Changes
-            </button>
-
-        </form>
+        </div>
 
     </div>
 

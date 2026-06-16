@@ -1,80 +1,89 @@
 {% extends "base.html" %}
 
-{% block title %}{{ entry.title }}{% endblock %}
+{% block title %}Journal Entry{% endblock %}
 
 {% block content %}
 
-<div class="card shadow">
+<div class="row justify-content-center">
 
-    <div class="card-header">
+    <div class="col-lg-8">
 
-        <h2>{{ entry.title }}</h2>
+        <div class="card border-0 shadow-sm">
 
-        <small class="text-muted">
-            {{ entry.created_at.strftime('%d %B %Y at %H:%M') }}
-        </small>
+            <div class="card-body p-5">
 
-    </div>
+                <div class="d-flex justify-content-between align-items-center mb-4">
 
-    <div class="card-body">
+                    <div>
 
-        <h5>Mood Score</h5>
-        <p>{{ entry.mood_score }}/5</p>
+                        <h4 class="mb-1">
 
-        <hr>
+                            {% if entry.mood_score == 5 %}
+                                😁 Great
+                            {% elif entry.mood_score == 4 %}
+                                🙂 Good
+                            {% elif entry.mood_score == 3 %}
+                                😐 Okay
+                            {% elif entry.mood_score == 2 %}
+                                😔 Low
+                            {% else %}
+                                😞 Struggling
+                            {% endif %}
 
-        <h5>Strongest Emotion</h5>
-        <p>{{ entry.strongest_emotion }}</p>
+                        </h4>
 
-        <hr>
+                        <small class="text-muted">
 
-        <h5>What happened today?</h5>
-        <p style="white-space: pre-wrap;">
-            {{ entry.emotional_event }}
-        </p>
+                            {{ entry.created_at.strftime('%A %d %B %Y at %H:%M') }}
 
-        <hr>
+                        </small>
 
-        <h5>What story was I telling myself?</h5>
-        <p style="white-space: pre-wrap;">
-            {{ entry.personal_story }}
-        </p>
+                    </div>
 
-        <hr>
+                </div>
 
-        <h5>Evidence for or against that story</h5>
-        <p style="white-space: pre-wrap;">
-            {{ entry.evidence }}
-        </p>
+                <hr>
 
-        <hr>
+                <div class="mt-4"
+                     style="
+                        white-space: pre-wrap;
+                        line-height: 1.8;
+                        font-size: 1.1rem;
+                     ">
 
-        <h5>What do I want to carry into tomorrow?</h5>
-        <p style="white-space: pre-wrap;">
-            {{ entry.tomorrow_focus }}
-        </p>
+                    {{ entry.content }}
 
-    </div>
+                </div>
 
-    <div class="card-footer d-flex gap-2">
+            </div>
 
-        <a href="{{ url_for('dashboard') }}"
-           class="btn btn-primary">
-            Back
-        </a>
+            <div class="card-footer bg-white">
 
-        <a href="{{ url_for('edit_entry',
-                            entry_id=entry.id) }}"
-           class="btn btn-warning">
-            Edit
-        </a>
+                <div class="d-flex gap-2">
 
-        <a href="{{ url_for('delete_entry',
-                            entry_id=entry.id) }}"
-           class="btn btn-danger"
-           onclick="return confirm('Delete this reflection?');">
-            Delete
-        </a>
+                    <a href="{{ url_for('dashboard') }}"
+                       class="btn btn-outline-secondary">
+                        Back
+                    </a>
+
+                    <a href="{{ url_for('edit_entry',
+                                        entry_id=entry.id) }}"
+                       class="btn btn-primary">
+                        Edit
+                    </a>
+
+                    <a href="{{ url_for('delete_entry',
+                                        entry_id=entry.id) }}"
+                       class="btn btn-danger"
+                       onclick="return confirm('Delete this entry?');">
+                        Delete
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 

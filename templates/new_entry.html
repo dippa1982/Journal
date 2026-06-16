@@ -4,115 +4,84 @@
 
 {% block content %}
 
-<div class="card shadow">
+<div class="row justify-content-center">
 
-    <div class="card-header">
-        <h2>Daily Reflection</h2>
-    </div>
+    <div class="col-lg-8">
 
-    <div class="card-body">
+        <div class="card border-0 shadow-sm">
 
-        <form method="POST">
+            <div class="card-body p-4">
 
-            <div class="mb-3">
-                <label class="form-label">
-                    Entry Title
-                </label>
+                <div class="mb-4">
 
-                <input
-                    type="text"
-                    name="title"
-                    class="form-control"
-                    required>
+                    <h2 class="mb-1">
+                        New Journal Entry
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        {{ now.strftime('%A %d %B %Y') if now else '' }}
+                    </p>
+
+                </div>
+
+                <form method="POST">
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            How are you feeling today?
+                        </label>
+
+                        <select
+                            name="mood_score"
+                            class="form-select"
+                            required>
+
+                            <option value="5">😁 Great</option>
+                            <option value="4">🙂 Good</option>
+                            <option value="3" selected>😐 Okay</option>
+                            <option value="2">😔 Low</option>
+                            <option value="1">😞 Struggling</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            What's on your mind?
+                        </label>
+
+                        <textarea
+                            name="content"
+                            class="form-control"
+                            rows="14"
+                            placeholder="Write about your day, your thoughts, your feelings, or anything else you want to remember..."
+                            required></textarea>
+
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+
+                        <a href="{{ url_for('dashboard') }}"
+                           class="btn btn-outline-secondary">
+                            Cancel
+                        </a>
+
+                        <button
+                            type="submit"
+                            class="btn btn-primary">
+                            Save Entry
+                        </button>
+
+                    </div>
+
+                </form>
+
             </div>
 
-            <div class="mb-3">
-                <label class="form-label">
-                    How are you feeling right now?
-                </label>
-
-                <select
-                    name="mood_score"
-                    class="form-select"
-                    required>
-
-                    <option value="1">1 - Very Low</option>
-                    <option value="2">2 - Low</option>
-                    <option value="3">3 - Neutral</option>
-                    <option value="4">4 - Good</option>
-                    <option value="5">5 - Great</option>
-
-                </select>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">
-                    What emotion was strongest today?
-                </label>
-
-                <input
-                    type="text"
-                    name="strongest_emotion"
-                    class="form-control"
-                    placeholder="Anxiety, Hope, Love, Fear..."
-                    required>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">
-                    What happened today that affected you emotionally?
-                </label>
-
-                <textarea
-                    name="emotional_event"
-                    class="form-control"
-                    rows="4"
-                    required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">
-                    What story were you telling yourself about it?
-                </label>
-
-                <textarea
-                    name="personal_story"
-                    class="form-control"
-                    rows="4"
-                    required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">
-                    What evidence supports or challenges that story?
-                </label>
-
-                <textarea
-                    name="evidence"
-                    class="form-control"
-                    rows="4"
-                    required></textarea>
-            </div>
-
-            <div class="mb-3">
-                <label class="form-label">
-                    What do you want to carry into tomorrow?
-                </label>
-
-                <textarea
-                    name="tomorrow_focus"
-                    class="form-control"
-                    rows="4"
-                    required></textarea>
-            </div>
-
-            <button
-                type="submit"
-                class="btn btn-success">
-                Save Reflection
-            </button>
-
-        </form>
+        </div>
 
     </div>
 
