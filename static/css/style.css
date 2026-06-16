@@ -1,54 +1,152 @@
+/* =========================
+   GLOBAL
+========================= */
+
 body {
-    background-color: #111827;
-    color: #e5e7eb;
+    background-color: #0f172a;
+    color: #e2e8f0;
+    font-family: "Segoe UI", sans-serif;
 }
 
-/* Navbar */
+/* =========================
+   NAVBAR
+========================= */
 
 .navbar {
-    background-color: #0f172a !important;
+    background-color: #020617 !important;
+    border-bottom: 1px solid #1e293b;
 }
 
-/* Cards */
+.navbar-brand {
+    font-weight: 600;
+    color: #f8fafc !important;
+}
+
+.nav-link,
+.navbar-text {
+    color: #cbd5e1 !important;
+}
+
+.nav-link:hover {
+    color: #60a5fa !important;
+}
+
+/* =========================
+   DROPDOWNS
+========================= */
+
+.dropdown-menu {
+    background-color: #1e293b;
+    border: 1px solid #334155;
+}
+
+.dropdown-item {
+    color: #e2e8f0;
+}
+
+.dropdown-item:hover {
+    background-color: #334155;
+    color: white;
+}
+
+/* =========================
+   CARDS
+========================= */
 
 .card {
     background-color: #1e293b;
     border: none;
-    border-radius: 16px;
-    color: #e5e7eb;
+    border-radius: 18px;
+    color: #e2e8f0;
 }
 
-/* Card footers */
-
+.card-body,
 .card-footer {
-    background-color: #1e293b !important;
-    border-top: 1px solid #334155;
+    color: #e2e8f0;
 }
 
-/* Links */
-
-a {
-    color: #93c5fd;
+.shadow-sm {
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.25) !important;
 }
 
-a:hover {
-    color: #bfdbfe;
+/* =========================
+   JOURNAL ENTRIES
+========================= */
+
+.border-bottom {
+    border-color: #334155 !important;
 }
 
-/* Muted text */
+.border-bottom:hover {
+    background-color: #273449;
+    transition: 0.2s;
+}
+
+a.text-decoration-none {
+    color: #e2e8f0 !important;
+}
+
+a.text-decoration-none:hover {
+    color: white !important;
+}
+
+/* =========================
+   TEXT
+========================= */
 
 .text-muted {
     color: #94a3b8 !important;
 }
 
-/* Inputs */
+h1, h2, h3, h4, h5, h6 {
+    color: #f8fafc;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.btn-primary {
+    background-color: #2563eb;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-success {
+    background-color: #16a34a;
+    border: none;
+    border-radius: 10px;
+}
+
+.btn-success:hover {
+    background-color: #15803d;
+}
+
+.btn-danger {
+    border-radius: 10px;
+}
+
+.btn-outline-secondary {
+    border-radius: 10px;
+}
+
+/* =========================
+   FORMS
+========================= */
 
 .form-control,
 .form-select {
 
     background-color: #0f172a;
-    border: 1px solid #334155;
     color: white;
+
+    border: 1px solid #334155;
+    border-radius: 12px;
 }
 
 .form-control:focus,
@@ -60,46 +158,65 @@ a:hover {
     border-color: #3b82f6;
 
     box-shadow:
-        0 0 0 0.25rem
-        rgba(59,130,246,.25);
+        0 0 0 0.2rem
+        rgba(59,130,246,0.25);
 }
 
-/* Buttons */
-
-.btn-primary {
-
-    background-color: #2563eb;
-    border: none;
+textarea {
+    min-height: 350px;
 }
 
-.btn-primary:hover {
-
-    background-color: #1d4ed8;
-}
-
-.btn-success {
-
-    background-color: #16a34a;
-    border: none;
-}
-
-.btn-success:hover {
-
-    background-color: #15803d;
-}
-
-/* Journal entries */
-
-.border-bottom {
-
-    border-color: #334155 !important;
-}
-
-/* Alerts */
+/* =========================
+   ALERTS
+========================= */
 
 .alert {
-
     background-color: #1e293b;
-    border: 1px solid #334155;
     color: white;
+    border: 1px solid #334155;
+}
+
+/* =========================
+   MOOD COLOURS
+========================= */
+
+.mood-great {
+    color: #22c55e;
+}
+
+.mood-good {
+    color: #84cc16;
+}
+
+.mood-ok {
+    color: #fbbf24;
+}
+
+.mood-low {
+    color: #f97316;
+}
+
+.mood-bad {
+    color: #ef4444;
+}
+
+/* =========================
+   SCROLLBAR
+========================= */
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
 }
