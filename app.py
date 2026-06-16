@@ -226,20 +226,50 @@ def dashboard():
 
     if total_entries:
         average_mood = round(
-            sum(
-                e.mood_score
-                for e in entries
-            ) / total_entries,
+            sum(e.mood_score for e in entries)
+            / total_entries,
             1
         )
     else:
         average_mood = 0
 
+    # Streak Calculation
+
+    streak = 0
+
+    if entries:
+
+        unique_days = sorted(
+            {
+                entry.created_at.date()
+                for entry in entries
+            },
+            reverse=True
+        )
+
+        from datetime import date, timedelta
+
+        current_day = date.today()
+
+        for day in unique_days:
+
+            if day == current_day:
+                streak += 1
+                current_day -= timedelta(days=1)
+
+            elif day == current_day - timedelta(days=1):
+                streak += 1
+                current_day = day - timedelta(days=1)
+
+            else:
+                break
+
     return render_template(
         'dashboard.html',
         entries=entries,
         total_entries=total_entries,
-        average_mood=average_mood
+        average_mood=average_mood,
+        streak=streak
     )
 
 # --------------------------------------------------
@@ -263,13 +293,14 @@ def new_entry():
 
         flash('Journal entry saved.')
 
-        return redirect(url_for('dashboard'))
+        return redirect(
+            url_for('dashboard')
+        )
 
     return render_template(
         'new_entry.html',
         now=datetime.now()
     )
-
 
 # --------------------------------------------------
 # Edit Entry
@@ -462,7 +493,6 @@ Mood: {mood_text}
 
 with app.app_context():
     db.create_all()
-
 
 # --------------------------------------------------
 # Run App

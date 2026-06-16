@@ -24,7 +24,8 @@
 
                 </div>
 
-                <form method="POST">
+                <form method="POST"
+                      enctype="multipart/form-data">
 
                     <div class="mb-4">
 
@@ -59,6 +60,25 @@
                             rows="14"
                             placeholder="Write about your day, your thoughts, your feelings, or anything else you want to remember..."
                             required></textarea>
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Photos (optional)
+                        </label>
+
+                        <input
+                            type="file"
+                            name="images"
+                            class="form-control"
+                            multiple
+                            accept="image/*">
+
+                        <div class="form-text">
+                            Add photos, screenshots or memories related to this journal entry.
+                        </div>
 
                     </div>
 

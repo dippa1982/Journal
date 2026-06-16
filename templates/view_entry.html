@@ -53,6 +53,27 @@
 
                     {{ entry.content }}
 
+                    {% if entry.images %}
+
+                    <div class="row mt-4">
+
+                    {% for image in entry.images %}
+
+                    <div class="col-md-4 mb-3">
+
+                    <img
+                        src="{{ url_for('static',
+                        filename='uploads/' + image.filename) }}"
+                        class="img-fluid rounded">
+
+                    </div>
+
+    {% endfor %}
+
+</div>
+
+{% endif %}
+
                 </div>
 
             </div>
