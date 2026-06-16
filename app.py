@@ -386,7 +386,33 @@ def export_markdown():
         Entry.created_at.asc()
     ).all()
 
-    markdown = "# My Journal\n\n"
+    markdown = """
+# AI Reflection Request
+
+Please analyse these journal entries.
+
+Focus specifically on:
+
+- Relationship patterns
+- Feelings of being taken for granted
+- Assumptions versus evidence
+- Emotional regulation
+- Progress over time
+- Situations where I may be catastrophising or mind-reading
+- Situations where my concerns appear well-founded
+
+Do not simply validate my perspective.
+Look for alternative interpretations and missing information.
+Identify both strengths and blind spots.
+
+Then provide:
+
+1. Key patterns
+2. Progress made
+3. Current challenges
+4. Suggested focus for the next month
+"""
+
 
     for entry in entries:
 
@@ -398,7 +424,7 @@ def export_markdown():
             1: "😞 Struggling"
         }.get(entry.mood_score, "Unknown")
 
-        markdown += f"""## {entry.created_at.strftime('%d %B %Y %H:%M')}
+        markdown += f"""## {entry.created_at.strftime('%A %d %B %Y %H:%M')}
 
 Mood: {mood_text}
 
