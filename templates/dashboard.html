@@ -6,13 +6,13 @@
 
 <div class="row mb-4">
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-6 mb-3">
 
         <div class="card border-0 shadow-sm">
             <div class="card-body text-center">
 
                 <h6 class="text-muted">
-                    Entries
+                    Total Entries
                 </h6>
 
                 <h2>
@@ -24,7 +24,7 @@
 
     </div>
 
-    <div class="col-md-4 mb-3">
+    <div class="col-md-6 mb-3">
 
         <div class="card border-0 shadow-sm">
             <div class="card-body text-center">
@@ -36,21 +36,6 @@
                 <h2>
                     {{ average_mood }}/5
                 </h2>
-
-            </div>
-        </div>
-
-    </div>
-
-    <div class="col-md-4 mb-3">
-
-        <div class="card border-0 shadow-sm">
-            <div class="card-body text-center">
-
-                <a href="{{ url_for('new_entry') }}"
-                   class="btn btn-primary btn-lg">
-                    New Entry
-                </a>
 
             </div>
         </div>
@@ -78,15 +63,15 @@
                     <div>
 
                         {% if entry.mood_score == 5 %}
-                            <span class="fs-4">😁</span>
+                            <span class="fs-3">😁</span>
                         {% elif entry.mood_score == 4 %}
-                            <span class="fs-4">🙂</span>
+                            <span class="fs-3">🙂</span>
                         {% elif entry.mood_score == 3 %}
-                            <span class="fs-4">😐</span>
+                            <span class="fs-3">😐</span>
                         {% elif entry.mood_score == 2 %}
-                            <span class="fs-4">😔</span>
+                            <span class="fs-3">😔</span>
                         {% else %}
-                            <span class="fs-4">😞</span>
+                            <span class="fs-3">😞</span>
                         {% endif %}
 
                     </div>
@@ -101,14 +86,10 @@
 
                 <div class="mt-3">
 
-                    {% if entry.content|length > 250 %}
-
-                        {{ entry.content[:250] }}...
-
+                    {% if entry.content|length > 200 %}
+                        {{ entry.content[:200] }}...
                     {% else %}
-
                         {{ entry.content }}
-
                     {% endif %}
 
                 </div>
@@ -134,13 +115,8 @@
         </h3>
 
         <p class="text-muted">
-            Start writing your first entry.
+            Create your first entry from the Journal menu above.
         </p>
-
-        <a href="{{ url_for('new_entry') }}"
-           class="btn btn-primary">
-            Create Entry
-        </a>
 
     </div>
 
