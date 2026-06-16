@@ -433,13 +433,15 @@ Mood: {mood_text}
 ---
 
 """
+        filename = datetime.now().strftime(
+    "journal_%Y-%m-%d_%H-%M.md")
 
     return Response(
         markdown,
         mimetype="text/markdown",
         headers={
-            "Content-Disposition":
-            "attachment; filename=journal.md"
+        "Content-Disposition":
+        f"attachment; filename={filename}"
         }
     )
 
