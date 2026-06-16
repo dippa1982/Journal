@@ -1,0 +1,105 @@
+body {
+    background-color: #111827;
+    color: #e5e7eb;
+}
+
+/* Navbar */
+
+.navbar {
+    background-color: #0f172a !important;
+}
+
+/* Cards */
+
+.card {
+    background-color: #1e293b;
+    border: none;
+    border-radius: 16px;
+    color: #e5e7eb;
+}
+
+/* Card footers */
+
+.card-footer {
+    background-color: #1e293b !important;
+    border-top: 1px solid #334155;
+}
+
+/* Links */
+
+a {
+    color: #93c5fd;
+}
+
+a:hover {
+    color: #bfdbfe;
+}
+
+/* Muted text */
+
+.text-muted {
+    color: #94a3b8 !important;
+}
+
+/* Inputs */
+
+.form-control,
+.form-select {
+
+    background-color: #0f172a;
+    border: 1px solid #334155;
+    color: white;
+}
+
+.form-control:focus,
+.form-select:focus {
+
+    background-color: #0f172a;
+    color: white;
+
+    border-color: #3b82f6;
+
+    box-shadow:
+        0 0 0 0.25rem
+        rgba(59,130,246,.25);
+}
+
+/* Buttons */
+
+.btn-primary {
+
+    background-color: #2563eb;
+    border: none;
+}
+
+.btn-primary:hover {
+
+    background-color: #1d4ed8;
+}
+
+.btn-success {
+
+    background-color: #16a34a;
+    border: none;
+}
+
+.btn-success:hover {
+
+    background-color: #15803d;
+}
+
+/* Journal entries */
+
+.border-bottom {
+
+    border-color: #334155 !important;
+}
+
+/* Alerts */
+
+.alert {
+
+    background-color: #1e293b;
+    border: 1px solid #334155;
+    color: white;
+}
