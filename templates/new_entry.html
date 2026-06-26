@@ -24,8 +24,7 @@
 
                 </div>
 
-                <form method="POST"
-                      enctype="multipart/form-data">
+                <form method="POST">
 
                     <div class="mb-4">
 
@@ -51,6 +50,20 @@
                     <div class="mb-4">
 
                         <label class="form-label">
+                            Tags (optional)
+                        </label>
+
+                        <input
+                            type="text"
+                            name="tags"
+                            class="form-control"
+                            placeholder="#Work #Family #Nicola">
+
+                    </div>
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
                             What's on your mind?
                         </label>
 
@@ -60,25 +73,6 @@
                             rows="14"
                             placeholder="Write about your day, your thoughts, your feelings, or anything else you want to remember..."
                             required></textarea>
-
-                    </div>
-
-                    <div class="mb-4">
-
-                        <label class="form-label">
-                            Photos (optional)
-                        </label>
-
-                        <input
-                            type="file"
-                            name="images"
-                            class="form-control"
-                            multiple
-                            accept="image/*">
-
-                        <div class="form-text">
-                            Add photos, screenshots or memories related to this journal entry.
-                        </div>
 
                     </div>
 
